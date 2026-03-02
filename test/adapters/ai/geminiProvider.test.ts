@@ -81,4 +81,49 @@ describe("GeminiProvider", () => {
       }
     ]);
   });
+
+  it("parses JSON wrapped in code fences and multi-part response", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          candidates: [
+            {
+              content: {
+                parts: [
+                  { text: "```json\n" },
+                  {
+                    text: JSON.stringify({
+                      clusters: [
+                        {
+                          clusterId: "cluster_1",
+                          summaryJa: "要約2",
+                          tags: ["Backend"],
+                          reasonToRead: "理由2"
+                        }
+                      ]
+                    })
+                  },
+                  { text: "\n```" }
+                ]
+              }
+            }
+          ]
+        }),
+        { status: 200 }
+      )
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const provider = new GeminiProvider("test-key");
+    const result = await provider.enrich([sampleCluster()]);
+
+    expect(result).toEqual([
+      {
+        clusterId: "cluster_1",
+        summaryJa: "要約2",
+        tags: ["Backend"],
+        reasonToRead: "理由2"
+      }
+    ]);
+  });
 });

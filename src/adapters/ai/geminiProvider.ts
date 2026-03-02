@@ -55,12 +55,16 @@ export class GeminiProvider implements AIProvider {
         const data = (await res.json()) as {
           candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
         };
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        const parts = data.candidates?.[0]?.content?.parts ?? [];
+        const text = parts
+          .map((part) => part.text ?? "")
+          .join("\n")
+          .trim();
         if (!text) {
           throw new Error("gemini empty response");
         }
 
-        const json = JSON.parse(text);
+        const json = parseJsonText(text);
         return responseSchema.parse(json);
       },
       2,
@@ -98,4 +102,22 @@ function buildPrompt(clusters: Cluster[]): string {
     "入力:",
     JSON.stringify(payload)
   ].join("\n");
+}
+
+function parseJsonText(text: string): unknown {
+  try {
+    return JSON.parse(text);
+  } catch {
+    const fenced = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i)?.[1];
+    if (fenced) {
+      return JSON.parse(fenced);
+    }
+
+    const start = text.indexOf("{");
+    const end = text.lastIndexOf("}");
+    if (start >= 0 && end > start) {
+      return JSON.parse(text.slice(start, end + 1));
+    }
+    throw new Error("gemini response is not valid JSON");
+  }
 }

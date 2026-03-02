@@ -1,5 +1,9 @@
 name: trendog
 
+concurrency:
+  group: trendog-prod
+  cancel-in-progress: false
+
 on:
   schedule:
     - cron: "10 0 * * *"
@@ -57,7 +61,7 @@ jobs:
         run: npm run run
 
       - name: Commit state
-        if: ${{ always() }}
+        if: ${{ success() && (github.event.inputs.dryRun != 'true') }}
         run: |
           if [ -f state/state.json ]; then
             git config user.name "github-actions[bot]"
