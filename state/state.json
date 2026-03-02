@@ -1,4 +1,258 @@
 {
-  "itemsState": {},
-  "postedHashes": {}
+  "lastRunJstDate": "2026-03-02",
+  "itemsState": {
+    "hackernews:47214645": {
+      "score": 299,
+      "comments": 79,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47176576": {
+      "score": 55,
+      "comments": 9,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47213866": {
+      "score": 86,
+      "comments": 10,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47212355": {
+      "score": 215,
+      "comments": 222,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47211249": {
+      "score": 272,
+      "comments": 154,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47212576": {
+      "score": 115,
+      "comments": 14,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47214250": {
+      "score": 19,
+      "comments": 9,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47213764": {
+      "score": 214,
+      "comments": 43,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47211830": {
+      "score": 120,
+      "comments": 29,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47213819": {
+      "score": 34,
+      "comments": 14,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47214063": {
+      "score": 22,
+      "comments": 14,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47206009": {
+      "score": 722,
+      "comments": 310,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47182284": {
+      "score": 171,
+      "comments": 79,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47211280": {
+      "score": 113,
+      "comments": 60,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47209788": {
+      "score": 106,
+      "comments": 81,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47208398": {
+      "score": 371,
+      "comments": 234,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47204964": {
+      "score": 476,
+      "comments": 74,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47183196": {
+      "score": 25,
+      "comments": 11,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47214367": {
+      "score": 11,
+      "comments": 6,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47189434": {
+      "score": 6,
+      "comments": 0,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47205208": {
+      "score": 263,
+      "comments": 37,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47165965": {
+      "score": 160,
+      "comments": 236,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47181714": {
+      "score": 16,
+      "comments": 3,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47182339": {
+      "score": 61,
+      "comments": 19,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47206798": {
+      "score": 173,
+      "comments": 116,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47170958": {
+      "score": 148,
+      "comments": 191,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47205637": {
+      "score": 223,
+      "comments": 46,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47207236": {
+      "score": 201,
+      "comments": 137,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47202708": {
+      "score": 1799,
+      "comments": 301,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47174189": {
+      "score": 52,
+      "comments": 5,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47183793": {
+      "score": 30,
+      "comments": 6,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47180140": {
+      "score": 60,
+      "comments": 19,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47214990": {
+      "score": 5,
+      "comments": 8,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47205890": {
+      "score": 539,
+      "comments": 284,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47168405": {
+      "score": 131,
+      "comments": 59,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47176209": {
+      "score": 44,
+      "comments": 46,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47214064": {
+      "score": 17,
+      "comments": 0,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47204559": {
+      "score": 246,
+      "comments": 57,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47211914": {
+      "score": 17,
+      "comments": 1,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47211029": {
+      "score": 102,
+      "comments": 47,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47207404": {
+      "score": 287,
+      "comments": 97,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47200420": {
+      "score": 798,
+      "comments": 431,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47164608": {
+      "score": 56,
+      "comments": 9,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47183396": {
+      "score": 113,
+      "comments": 25,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47181542": {
+      "score": 145,
+      "comments": 28,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47209781": {
+      "score": 192,
+      "comments": 87,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47165230": {
+      "score": 97,
+      "comments": 21,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47178758": {
+      "score": 79,
+      "comments": 33,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47214768": {
+      "score": 3,
+      "comments": 0,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    },
+    "hackernews:47209443": {
+      "score": 97,
+      "comments": 9,
+      "lastSeen": "2026-03-02T08:44:18.934Z"
+    }
+  },
+  "postedHashes": {
+    "2026-03-02": "8983abd5454aed2d92aec3df13b2029fbd2d7fd2e5aab584bd04cb09ca333b0f"
+  }
 }
