@@ -3,7 +3,6 @@ import { runApp } from "../../app.js";
 export interface Env {
   GEMINI_API_KEY: string;
   SLACK_WEBHOOK_URL: string;
-  REDDIT_USER_AGENT?: string;
 }
 
 export default {
@@ -15,8 +14,7 @@ export default {
       debug: false,
       runId: `workers-${Date.now()}`,
       geminiApiKey: env.GEMINI_API_KEY,
-      slackWebhookUrl: env.SLACK_WEBHOOK_URL,
-      redditUserAgent: env.REDDIT_USER_AGENT
+      slackWebhookUrl: env.SLACK_WEBHOOK_URL
     });
   }
 };

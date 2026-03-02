@@ -53,9 +53,6 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          REDDIT_USER_AGENT: ${{ vars.REDDIT_USER_AGENT }}
-          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
-          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
           STATE_FILE_PATH: state/state.json
           INPUT_MODE: ${{ github.event.inputs.mode || 'normal' }}
           INPUT_DRYRUN: ${{ github.event.inputs.dryRun || 'false' }}

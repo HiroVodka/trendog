@@ -20,9 +20,11 @@ Cloudflare Workers移行時は、主に `src/adapters/githubActions/main.ts` を
 
 - `GEMINI_API_KEY`
 - `SLACK_WEBHOOK_URL`
-- `REDDIT_USER_AGENT` (Repository Variables推奨)
-- `REDDIT_CLIENT_ID` (optional, Reddit OAuth)
-- `REDDIT_CLIENT_SECRET` (optional, Reddit OAuth)
+
+収集ソース（現行）:
+- Hatena Hotentry
+- Hacker News
+- Zenn Feed
 
 ## 手動実行
 
@@ -49,7 +51,6 @@ export MAX_TOPICS=17
 export DEBUG=true
 export GEMINI_API_KEY=...
 export SLACK_WEBHOOK_URL=...
-export REDDIT_USER_AGENT='trendog-bot/0.1'
 ```
 
 ## 状態ファイル

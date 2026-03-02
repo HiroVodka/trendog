@@ -1,4 +1,4 @@
-export type SourceName = "hatena" | "hackernews" | "reddit";
+export type SourceName = "hatena" | "hackernews" | "reddit" | "zenn";
 
 export interface SourceItem {
   source: SourceName;
