@@ -1,4 +1,4 @@
-# trendog
+# trendog 🐶
 
 ![trendog character](./trendog.png)
 
