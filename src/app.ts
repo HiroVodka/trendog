@@ -13,6 +13,7 @@ export interface AppRuntimeOptions {
   maxTopics: number;
   debug: boolean;
   runId: string;
+  audienceProfile?: string;
   geminiApiKey?: string;
   slackWebhookUrl?: string;
   stateFilePath?: string;
@@ -24,6 +25,8 @@ export async function runApp(opts: AppRuntimeOptions): Promise<void> {
   const slackWebhookUrl = firstNonEmpty(opts.slackWebhookUrl, process.env.SLACK_WEBHOOK_URL) ?? "";
   const stateFilePath = firstNonEmpty(opts.stateFilePath, process.env.STATE_FILE_PATH) ?? "state/state.json";
   const geminiModel = firstNonEmpty(opts.geminiModel, process.env.GEMINI_MODEL) ?? "gemini-flash-latest";
+  const audienceProfile =
+    firstNonEmpty(opts.audienceProfile, process.env.AUDIENCE_PROFILE) ?? "バックエンドエンジニア、SREエンジニア";
 
   const fetchers = [new HatenaFetcher(), new HackerNewsFetcher(), new ZennFetcher()];
 
@@ -35,7 +38,7 @@ export async function runApp(opts: AppRuntimeOptions): Promise<void> {
       notifier: new SlackWebhookNotifier(slackWebhookUrl),
       logger: consoleLogger
     },
-    opts
+    { ...opts, audienceProfile }
   );
 }
 
