@@ -7,9 +7,7 @@ function makeCluster(id: string, title: string): Cluster {
     id,
     canonicalUrl: `https://example.com/${id}`,
     title,
-    trendScore: 2,
-    deltaScore: 5,
-    deltaComments: 3,
+    rankScore: 2,
     items: [
       {
         source: "hackernews",
@@ -20,9 +18,7 @@ function makeCluster(id: string, title: string): Cluster {
         comments: 3,
         publishedAt: "2026-03-02T00:00:00.000Z",
         ageHours: 1,
-        deltaScore: 5,
-        deltaComments: 3,
-        trendScore: 2
+        rankScore: 2
       }
     ]
   };

@@ -26,9 +26,7 @@ export interface AppState {
 
 export interface ScoredItem extends SourceItem {
   ageHours: number;
-  deltaScore: number;
-  deltaComments: number;
-  trendScore: number;
+  rankScore: number;
 }
 
 export interface Cluster {
@@ -36,9 +34,7 @@ export interface Cluster {
   canonicalUrl: string;
   title: string;
   items: ScoredItem[];
-  trendScore: number;
-  deltaScore: number;
-  deltaComments: number;
+  rankScore: number;
 }
 
 export interface EnrichedCluster {

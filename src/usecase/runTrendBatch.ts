@@ -79,8 +79,7 @@ export async function runTrendBatch(deps: Dependencies, options: RunOptions): Pr
     }
   }
 
-  const prevState = state.itemsState;
-  const scored = scoreItems(sourceItems, prevState, now);
+  const scored = scoreItems(sourceItems, now);
   const clusters = clusterByUrl(scored);
   const maxTopics = clampTopics(options.maxTopics);
 
