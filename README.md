@@ -1,68 +1,111 @@
 # trendog
 
-エンジニア向けトレンド情報を収集し、Geminiで加工してSlackへ投稿するバッチアプリです。
+![trendog character](./trendog.png)
 
-## 実行基盤
+> Beta: trendog は現在ベータ版です。仕様や出力フォーマットは今後変更される可能性があります。
 
-- 第一基盤: GitHub Actions (`.github/workflows/trendog.yml`)
-- スケジュール: 毎日 `00:10 UTC` 起動
-- 投稿判定: JST隔日 (`2026-03-02` をアンカーに `days_since_anchor % 2 == 0`)
+trendog は、技術トレンド記事を定期収集し、Gemini で対象読者にとって重要な記事を選別・要約して Slack に投稿するバッチアプリです。
 
-## アーキテクチャ
+## Features
 
-- `src/usecase` / `src/domain`: コアロジック
-- `src/ports`: `SourceFetcher`, `StateStore`, `AIProvider`, `Notifier`
-- `src/adapters`: GitHub Actions, Workers, Slack, Gemini, 各ソース, state file
+- 複数ソースのトレンド記事を収集
+- 収集ソース: Hatena Hotentry / Hacker News / Zenn Feed
+- Gemini による重要度判定（対象読者プロファイルに基づく）
+- 重要記事のみを Slack へ投稿
+- GitHub Actions 定期実行（JST隔日判定）
+- `workflow_dispatch` による手動実行
+- 将来の Workers 移行を想定した Ports/Adapters 分離
 
-Cloudflare Workers移行時は、主に `src/adapters/githubActions/main.ts` を `src/adapters/workers/handler.ts` に切り替え、`StateStore` 実装をKV版へ差し替える想定です。
+## Output Format
 
-## 必要なSecrets/Vars
+投稿される各記事のフォーマット:
+
+- 記事タイトル
+- URL
+- 内容の要約
+- おすすめ理由
+
+## Quick Start
+
+### 1. Install
+
+```bash
+npm ci
+```
+
+### 2. Set env vars (local)
+
+```bash
+export GEMINI_API_KEY='...'
+export SLACK_WEBHOOK_URL='...'
+export AUDIENCE_PROFILE='バックエンドエンジニア、SREエンジニア'
+```
+
+### 3. Run
+
+```bash
+npm run run
+```
+
+## GitHub Actions Usage
+
+Workflow: `.github/workflows/trendog.yml`
+
+### Schedule
+
+- 毎日 `00:10 UTC` に起動
+- ジョブ内部で JST 隔日判定を実施
+
+### Manual Run (`workflow_dispatch`)
+
+入力パラメータ:
+
+- `mode`: `normal` / `force`
+- `dryRun`: `true` / `false`
+- `maxTopics`: 出力上限（既定 17）
+- `audienceProfile`: Gemini が重要判定するときの対象読者
+- `debug`: `true` / `false`
+
+## Required Secrets / Variables
+
+GitHub Secrets:
 
 - `GEMINI_API_KEY`
 - `SLACK_WEBHOOK_URL`
 
-収集ソース（現行）:
-- Hatena Hotentry
-- Hacker News
-- Zenn Feed
+GitHub Variables (optional):
 
-## 手動実行
+- `GEMINI_MODEL` (default: `gemini-flash-latest`)
+- `AUDIENCE_PROFILE` (default: `バックエンドエンジニア、SREエンジニア`)
 
-`workflow_dispatch` inputs:
+## Recommended Audience Profile Examples
 
-- `mode`: `normal` / `force`
-- `dryRun`: `true` / `false`
-- `maxTopics`: default `17`, max `30`
-- `debug`: `true` / `false`
+- `バックエンドエンジニア、SREエンジニア`
+- `インフラエンジニア、プラットフォームエンジニア`
+- `AIアプリケーション開発者`
 
-## ローカル実行
+## Development
 
 ```bash
-npm ci
-npm run run
+npm run typecheck
+npm test
+npm run build
 ```
 
-環境変数例:
+## Project Structure
 
-```bash
-export MODE=force
-export DRY_RUN=true
-export MAX_TOPICS=17
-export DEBUG=true
-export GEMINI_API_KEY=...
-export SLACK_WEBHOOK_URL=...
-```
+- `src/usecase`: 実行フローのユースケース
+- `src/domain`: スコアリング・整形などのドメインロジック
+- `src/ports`: インターフェース定義
+- `src/adapters`: 外部I/O実装（Sources / Gemini / Slack / Runtime）
+- `state/state.json`: 実行状態（重複投稿防止、前回値）
 
-## 状態ファイル
+## Notes
 
-- 既定: `state/state.json`
-- 保存内容:
-  - `lastRunJstDate`
-  - `itemsState` (source:idごとのscore/comments/lastSeen)
-  - `postedHashes` (日次二重投稿防止)
+- ソース取得はリトライ付き
+- Gemini失敗時はフォールバックして投稿継続
+- 同日重複投稿は state で防止
 
-## 備考
+## License
 
-- ソース取得はHTTPリトライあり（指数バックオフ、最大3回）
-- Geminiは最大2回リトライ、失敗時はAI無しフォールバック
-- Slack投稿はIncoming Webhook
+公開時にライセンスファイルを追加してください（例: MIT）。

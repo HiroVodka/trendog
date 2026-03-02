@@ -35,7 +35,7 @@ function logger(): Logger {
 
 function ai(enriched: EnrichedCluster[] | Error): AIProvider {
   return {
-    enrich: vi.fn(async (_clusters: Cluster[]) => {
+    enrich: vi.fn(async (_clusters: Cluster[], _audienceProfile: string) => {
       if (enriched instanceof Error) throw enriched;
       return enriched;
     })
@@ -70,7 +70,7 @@ describe("runTrendBatch", () => {
 
     await runTrendBatch(
       { fetchers: [f], stateStore: state, aiProvider: a, notifier: n, logger: logger() },
-      { mode: "normal", dryRun: false, maxTopics: 17, debug: false, runId: "r1", now: oddJstNow }
+      { mode: "normal", dryRun: false, maxTopics: 17, debug: false, runId: "r1", audienceProfile: "backend,sre", now: oddJstNow }
     );
 
     expect(f.fetchItems).not.toHaveBeenCalled();
@@ -83,6 +83,7 @@ describe("runTrendBatch", () => {
     const a = ai([
       {
         clusterId: "cluster_1",
+        isImportant: true,
         summaryJa: "要約",
         tags: ["AI"],
         reasonToRead: "理由"
@@ -92,7 +93,7 @@ describe("runTrendBatch", () => {
 
     await runTrendBatch(
       { fetchers: [f], stateStore: state, aiProvider: a, notifier: n, logger: logger() },
-      { mode: "force", dryRun: true, maxTopics: 17, debug: false, runId: "r2", now: oddJstNow }
+      { mode: "force", dryRun: true, maxTopics: 17, debug: false, runId: "r2", audienceProfile: "backend,sre", now: oddJstNow }
     );
 
     expect(f.fetchItems).toHaveBeenCalledTimes(1);
@@ -117,7 +118,7 @@ describe("runTrendBatch", () => {
         notifier: notifier(),
         logger: logger()
       },
-      { mode: "normal", dryRun: false, maxTopics: 17, debug: false, runId: "r3", now: evenJstNow }
+      { mode: "normal", dryRun: false, maxTopics: 17, debug: false, runId: "r3", audienceProfile: "backend,sre", now: evenJstNow }
     );
 
     expect(f.fetchItems).not.toHaveBeenCalled();
@@ -136,7 +137,7 @@ describe("runTrendBatch", () => {
         notifier: n,
         logger: logger()
       },
-      { mode: "normal", dryRun: false, maxTopics: 17, debug: false, runId: "r4", now: evenJstNow }
+      { mode: "normal", dryRun: false, maxTopics: 17, debug: false, runId: "r4", audienceProfile: "backend,sre", now: evenJstNow }
     );
 
     expect(n.notify).toHaveBeenCalledTimes(1);
@@ -155,7 +156,7 @@ describe("runTrendBatch", () => {
           notifier: notifier(false),
           logger: logger()
         },
-        { mode: "normal", dryRun: false, maxTopics: 17, debug: false, runId: "r5", now: evenJstNow }
+        { mode: "normal", dryRun: false, maxTopics: 17, debug: false, runId: "r5", audienceProfile: "backend,sre", now: evenJstNow }
       )
     ).rejects.toThrow("slack webhook failed");
   });

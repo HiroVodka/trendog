@@ -27,21 +27,25 @@ export class HatenaFetcher implements SourceFetcher {
       url: x.link,
       score: x.bookmarks,
       comments: 0,
-      publishedAt: x.date
+      publishedAt: x.date,
+      contentSnippet: x.description
     }));
   }
 }
 
-function parseHatenaRss(xml: string): Array<{ title: string; link: string; bookmarks: number; date: string }> {
+function parseHatenaRss(
+  xml: string
+): Array<{ title: string; link: string; bookmarks: number; date: string; description: string }> {
   const items = xml.match(/<item\b[\s\S]*?<\/item>/g) ?? [];
   return items
     .map((item) => {
       const title = decodeXml(matchTag(item, "title") ?? "");
       const link = decodeXml(matchTag(item, "link") ?? "");
+      const description = sanitizeText(decodeXml(matchTag(item, "description") ?? ""));
       const date = matchTag(item, "dc:date") ?? new Date().toISOString();
       const bookmarkRaw = matchTag(item, "hatena:bookmarkcount") ?? "0";
       const bookmarks = Number(bookmarkRaw) || 0;
-      return { title, link, date, bookmarks };
+      return { title, link, date, bookmarks, description };
     })
     .filter((x) => x.title.length > 0 && x.link.length > 0);
 }
@@ -60,4 +64,8 @@ function decodeXml(text: string): string {
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, "\"")
     .replace(/&#39;/g, "'");
+}
+
+function sanitizeText(text: string): string {
+  return text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 600);
 }

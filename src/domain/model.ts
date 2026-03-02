@@ -8,6 +8,7 @@ export interface SourceItem {
   score: number;
   comments: number;
   publishedAt: string;
+  contentSnippet?: string;
   rawUrl?: string;
 }
 
@@ -45,6 +46,7 @@ export interface EnrichedCluster {
   summaryJa: string;
   tags: string[];
   reasonToRead: string;
+  isImportant: boolean;
 }
 
 export interface RenderedSections {

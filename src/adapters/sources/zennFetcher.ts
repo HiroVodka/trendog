@@ -27,21 +27,25 @@ export class ZennFetcher implements SourceFetcher {
       comments: 0,
       // Zenn feed is already trend-ranked, so we map rank to score.
       score: Math.max(1, 100 - i),
-      publishedAt: entry.pubDate
+      publishedAt: entry.pubDate,
+      contentSnippet: entry.description
     }));
   }
 }
 
-function parseZennRss(xml: string): Array<{ id: string; title: string; link: string; pubDate: string }> {
+function parseZennRss(
+  xml: string
+): Array<{ id: string; title: string; link: string; pubDate: string; description: string }> {
   const items = xml.match(/<item\b[\s\S]*?<\/item>/g) ?? [];
   return items
     .map((item) => {
       const title = decodeXml(stripCdata(matchTag(item, "title") ?? ""));
       const link = decodeXml(stripCdata(matchTag(item, "link") ?? ""));
       const guid = decodeXml(stripCdata(matchTag(item, "guid") ?? link));
+      const description = sanitizeText(decodeXml(stripCdata(matchTag(item, "description") ?? "")));
       const pubDateRaw = stripCdata(matchTag(item, "pubDate") ?? "");
       const pubDate = pubDateRaw ? new Date(pubDateRaw).toISOString() : new Date().toISOString();
-      return { id: guid || link, title, link, pubDate };
+      return { id: guid || link, title, link, pubDate, description };
     })
     .filter((x) => x.id.length > 0 && x.title.length > 0 && x.link.length > 0);
 }
@@ -65,4 +69,8 @@ function decodeXml(text: string): string {
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'");
+}
+
+function sanitizeText(text: string): string {
+  return text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 600);
 }

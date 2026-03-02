@@ -4,7 +4,7 @@ import {
   EnrichedCluster,
   MAX_TOPICS_LIMIT
 } from "../domain/model.js";
-import { clusterByUrl, pickSections, scoreItems } from "../domain/ranking.js";
+import { clusterByUrl, scoreItems } from "../domain/ranking.js";
 import { renderMarkdown } from "../domain/markdown.js";
 import { AIProvider } from "../ports/aiProvider.js";
 import { Notifier } from "../ports/notifier.js";
@@ -20,6 +20,7 @@ export interface RunOptions {
   maxTopics: number;
   debug: boolean;
   runId: string;
+  audienceProfile: string;
   now?: Date;
 }
 
@@ -82,23 +83,41 @@ export async function runTrendBatch(deps: Dependencies, options: RunOptions): Pr
   const scored = scoreItems(sourceItems, prevState, now);
   const clusters = clusterByUrl(scored);
   const maxTopics = clampTopics(options.maxTopics);
-  const sections = pickSections(clusters, maxTopics);
 
   let enriched: EnrichedCluster[] = [];
   let aiFallback = false;
   try {
-    enriched = await deps.aiProvider.enrich(sections.selected);
+    enriched = await deps.aiProvider.enrich(clusters, options.audienceProfile);
   } catch (err) {
     aiFallback = true;
     deps.logger.error("ai enrich failed; fallback enabled", { error: String(err) });
   }
 
+  const importantClusterIds = new Set(enriched.filter((e) => e.isImportant).map((e) => e.clusterId));
+  let outputClusters = clusters.filter((c) => importantClusterIds.has(c.id)).slice(0, maxTopics);
+  let outputEnriched = enriched.filter((e) => importantClusterIds.has(e.clusterId));
+
+  if (outputClusters.length === 0) {
+    outputClusters = clusters.slice(0, maxTopics);
+    const existing = new Map(enriched.map((e) => [e.clusterId, e]));
+    outputEnriched = outputClusters.map((c) => {
+      const found = existing.get(c.id);
+      if (found) return { ...found, isImportant: true };
+      return {
+        clusterId: c.id,
+        summaryJa: "要約生成に失敗したため、元リンクを確認してください。",
+        tags: [],
+        reasonToRead: "対象読者の実務に関連する可能性が高いため。",
+        isImportant: true
+      };
+    });
+  }
+
   const markdown = renderMarkdown({
     jstDate,
-    topTopics: sections.topTopics,
-    rising: sections.rising,
-    deepDiscussion: sections.deepDiscussion,
-    enriched
+    audienceProfile: options.audienceProfile,
+    clusters: outputClusters,
+    enriched: outputEnriched
   });
 
   const postHash = sha256(markdown);
@@ -143,7 +162,8 @@ export async function runTrendBatch(deps: Dependencies, options: RunOptions): Pr
     ...logBase,
     fetched: sourceCounts,
     clustered_count: clusters.length,
-    selected_count: sections.selected.length,
+    important_count: importantClusterIds.size,
+    selected_count: outputClusters.length,
     ai_calls: 1,
     ai_fallback: aiFallback
   });

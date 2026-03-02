@@ -35,43 +35,67 @@ describe("GeminiProvider", () => {
 
   it("throws when API key is missing", async () => {
     const provider = new GeminiProvider("");
-    await expect(provider.enrich([sampleCluster()])).rejects.toThrow("GEMINI_API_KEY is missing");
+    await expect(provider.enrich([sampleCluster()], "バックエンドエンジニア、SREエンジニア")).rejects.toThrow(
+      "GEMINI_API_KEY is missing"
+    );
   });
 
   it("parses strict JSON and filters unknown tags", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          candidates: [
-            {
-              content: {
-                parts: [
-                  {
-                    text: JSON.stringify({
-                      clusters: [
-                        {
-                          clusterId: "cluster_1",
-                          summaryJa: "要約",
-                          tags: ["AI", "UnknownTag"],
-                          reasonToRead: "理由"
-                        }
-                      ]
-                    })
-                  }
-                ]
+    const fetchMock = vi
+      .fn()
+      .mockImplementationOnce(async () =>
+        new Response(
+          JSON.stringify({
+            candidates: [
+              {
+                content: {
+                  parts: [
+                    {
+                      text: JSON.stringify({
+                        clusters: [{ clusterId: "cluster_1", isImportant: true, reasonToRead: "重要だから" }]
+                      })
+                    }
+                  ]
+                }
               }
-            }
-          ]
-        }),
-        { status: 200 }
+            ]
+          }),
+          { status: 200 }
+        )
       )
-    );
+      .mockImplementationOnce(async () =>
+        new Response(
+          JSON.stringify({
+            candidates: [
+              {
+                content: {
+                  parts: [
+                    {
+                      text: JSON.stringify({
+                        clusters: [
+                          {
+                            clusterId: "cluster_1",
+                            summaryJa: "要約",
+                            tags: ["AI", "UnknownTag"],
+                            reasonToRead: "理由"
+                          }
+                        ]
+                      })
+                    }
+                  ]
+                }
+              }
+            ]
+          }),
+          { status: 200 }
+        )
+      );
     vi.stubGlobal("fetch", fetchMock);
 
     const provider = new GeminiProvider("test-key");
-    const result = await provider.enrich([sampleCluster()]);
+    const result = await provider.enrich([sampleCluster()], "バックエンドエンジニア、SREエンジニア");
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(fetchMock.mock.calls[0]?.[1]).toMatchObject({
       headers: expect.objectContaining({
         "X-goog-api-key": "test-key"
@@ -80,6 +104,7 @@ describe("GeminiProvider", () => {
     expect(result).toEqual([
       {
         clusterId: "cluster_1",
+        isImportant: true,
         summaryJa: "要約",
         tags: ["AI"],
         reasonToRead: "理由"
@@ -88,43 +113,66 @@ describe("GeminiProvider", () => {
   });
 
   it("parses JSON wrapped in code fences and multi-part response", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          candidates: [
-            {
-              content: {
-                parts: [
-                  { text: "```json\n" },
-                  {
-                    text: JSON.stringify({
-                      clusters: [
-                        {
-                          clusterId: "cluster_1",
-                          summaryJa: "要約2",
-                          tags: ["Backend"],
-                          reasonToRead: "理由2"
-                        }
-                      ]
-                    })
-                  },
-                  { text: "\n```" }
-                ]
+    const fetchMock = vi
+      .fn()
+      .mockImplementationOnce(async () =>
+        new Response(
+          JSON.stringify({
+            candidates: [
+              {
+                content: {
+                  parts: [
+                    {
+                      text: JSON.stringify({
+                        clusters: [{ clusterId: "cluster_1", isImportant: true, reasonToRead: "重要だから" }]
+                      })
+                    }
+                  ]
+                }
               }
-            }
-          ]
-        }),
-        { status: 200 }
+            ]
+          }),
+          { status: 200 }
+        )
       )
-    );
+      .mockImplementationOnce(async () =>
+        new Response(
+          JSON.stringify({
+            candidates: [
+              {
+                content: {
+                  parts: [
+                    { text: "```json\n" },
+                    {
+                      text: JSON.stringify({
+                        clusters: [
+                          {
+                            clusterId: "cluster_1",
+                            summaryJa: "要約2",
+                            tags: ["Backend"],
+                            reasonToRead: "理由2"
+                          }
+                        ]
+                      })
+                    },
+                    { text: "\n```" }
+                  ]
+                }
+              }
+            ]
+          }),
+          { status: 200 }
+        )
+      );
     vi.stubGlobal("fetch", fetchMock);
 
     const provider = new GeminiProvider("test-key");
-    const result = await provider.enrich([sampleCluster()]);
+    const result = await provider.enrich([sampleCluster()], "バックエンドエンジニア、SREエンジニア");
 
     expect(result).toEqual([
       {
         clusterId: "cluster_1",
+        isImportant: true,
         summaryJa: "要約2",
         tags: ["Backend"],
         reasonToRead: "理由2"
@@ -155,14 +203,27 @@ describe("GeminiProvider", () => {
                   parts: [
                     {
                       text: JSON.stringify({
-                        clusters: [
-                          {
-                            clusterId: "cluster_1",
-                            summaryJa: "要約3",
-                            tags: ["AI"],
-                            reasonToRead: "理由3"
-                          }
-                        ]
+                        clusters: [{ clusterId: "cluster_1", isImportant: true, reasonToRead: "理由3" }]
+                      })
+                    }
+                  ]
+                }
+              }
+            ]
+          }),
+          { status: 200 }
+        )
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            candidates: [
+              {
+                content: {
+                  parts: [
+                    {
+                      text: JSON.stringify({
+                        clusters: [{ clusterId: "cluster_1", summaryJa: "要約3", tags: ["AI"], reasonToRead: "理由3" }]
                       })
                     }
                   ]
@@ -176,9 +237,9 @@ describe("GeminiProvider", () => {
     vi.stubGlobal("fetch", fetchMock);
 
     const provider = new GeminiProvider("test-key");
-    const result = await provider.enrich([sampleCluster()]);
+    const result = await provider.enrich([sampleCluster()], "バックエンドエンジニア、SREエンジニア");
 
-    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
     const firstUrl = String(fetchMock.mock.calls[0]?.[0]);
     const secondUrl = String(fetchMock.mock.calls[1]?.[0]);
     expect(firstUrl).toContain("models/gemini-flash-latest");

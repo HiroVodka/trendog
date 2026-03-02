@@ -1,41 +1,29 @@
 import { Cluster, EnrichedCluster } from "./model.js";
 
-function clusterLine(cluster: Cluster, enriched?: EnrichedCluster): string {
-  const links = cluster.items
-    .slice(0, 2)
-    .map((i) => `<${i.url}|${i.source}>`)
-    .join(" / ");
-
+function clusterLine(cluster: Cluster, enriched?: EnrichedCluster, index?: number): string {
   const summary = enriched?.summaryJa ?? "要約生成に失敗したため、元リンクを確認してください。";
-  const tags = (enriched?.tags ?? ["Trend"]).slice(0, 3).map((t) => `#${t}`).join(" ");
-  const reason = enriched?.reasonToRead ?? `増分スコア:+${cluster.deltaScore} / コメント:+${cluster.deltaComments}`;
+  const reason = enriched?.reasonToRead ?? "対象読者の実務に関連する可能性が高いため。";
+  const url = cluster.canonicalUrl || cluster.items[0]?.url || "";
 
   return [
-    `• *${cluster.title}*`,
-    `  ${summary}`,
-    `  ${tags}`,
-    `  理由: ${reason}`,
-    `  link: ${links}`
+    `${index != null ? `${index + 1}. ` : ""}*${cluster.title}*`,
+    `URL: ${url}`,
+    `要約: ${summary}`,
+    `おすすめ理由: ${reason}`
   ].join("\n");
-}
-
-function section(title: string, clusters: Cluster[], enrichedMap: Map<string, EnrichedCluster>): string {
-  const lines = clusters.map((c) => clusterLine(c, enrichedMap.get(c.id))).join("\n\n");
-  return `*${title}*\n${lines || "(なし)"}`;
 }
 
 export function renderMarkdown(input: {
   jstDate: string;
-  topTopics: Cluster[];
-  rising: Cluster[];
-  deepDiscussion: Cluster[];
+  audienceProfile: string;
+  clusters: Cluster[];
   enriched: EnrichedCluster[];
 }): string {
   const enrichedMap = new Map(input.enriched.map((x) => [x.clusterId, x]));
+  const lines = input.clusters.map((c, i) => clusterLine(c, enrichedMap.get(c.id), i)).join("\n\n");
   return [
     `*今日のエンジニアトレンド（${input.jstDate} JST）*`,
-    section("🧩 注目トピック Top 7", input.topTopics, enrichedMap),
-    section("🔥 急上昇 Top 5", input.rising, enrichedMap),
-    section("🧵 議論が深い Top 5", input.deepDiscussion, enrichedMap)
+    `*対象読者:* ${input.audienceProfile}`,
+    lines || "(該当なし)"
   ].join("\n\n");
 }

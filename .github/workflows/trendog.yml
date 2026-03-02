@@ -26,6 +26,10 @@ on:
         description: "max topic count (<=30)"
         required: false
         default: "17"
+      audienceProfile:
+        description: "target audience profile for Gemini filtering"
+        required: false
+        default: "バックエンドエンジニア、SREエンジニア"
       debug:
         description: "debug logging"
         required: false
@@ -52,11 +56,13 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          AUDIENCE_PROFILE: ${{ vars.AUDIENCE_PROFILE }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           STATE_FILE_PATH: state/state.json
           INPUT_MODE: ${{ github.event.inputs.mode || 'normal' }}
           INPUT_DRYRUN: ${{ github.event.inputs.dryRun || 'false' }}
           INPUT_MAXTOPICS: ${{ github.event.inputs.maxTopics || '17' }}
+          INPUT_AUDIENCEPROFILE: ${{ github.event.inputs.audienceProfile || 'バックエンドエンジニア、SREエンジニア' }}
           INPUT_DEBUG: ${{ github.event.inputs.debug || 'false' }}
         run: npm run run
 

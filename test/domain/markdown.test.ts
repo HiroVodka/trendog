@@ -33,12 +33,12 @@ describe("renderMarkdown", () => {
     const c1 = makeCluster("c1", "Topic A");
     const md = renderMarkdown({
       jstDate: "2026-03-02",
-      topTopics: [c1],
-      rising: [c1],
-      deepDiscussion: [c1],
+      audienceProfile: "バックエンドエンジニア、SREエンジニア",
+      clusters: [c1],
       enriched: [
         {
           clusterId: "c1",
+          isImportant: true,
           summaryJa: "要約です",
           tags: ["AI", "Backend"],
           reasonToRead: "読む価値あり"
@@ -47,25 +47,23 @@ describe("renderMarkdown", () => {
     });
 
     expect(md).toContain("今日のエンジニアトレンド（2026-03-02 JST）");
-    expect(md).toContain("🧩 注目トピック Top 7");
-    expect(md).toContain("🔥 急上昇 Top 5");
-    expect(md).toContain("🧵 議論が深い Top 5");
+    expect(md).toContain("対象読者");
+    expect(md).toContain("Topic A");
+    expect(md).toContain("URL: https://example.com/c1");
     expect(md).toContain("要約です");
-    expect(md).toContain("#AI #Backend");
-    expect(md).toContain("理由: 読む価値あり");
+    expect(md).toContain("おすすめ理由: 読む価値あり");
   });
 
   it("falls back when enrichment is missing", () => {
     const c1 = makeCluster("c1", "Topic A");
     const md = renderMarkdown({
       jstDate: "2026-03-02",
-      topTopics: [c1],
-      rising: [],
-      deepDiscussion: [],
+      audienceProfile: "バックエンドエンジニア、SREエンジニア",
+      clusters: [c1],
       enriched: []
     });
 
     expect(md).toContain("要約生成に失敗したため、元リンクを確認してください。");
-    expect(md).toContain("増分スコア:+5 / コメント:+3");
+    expect(md).toContain("おすすめ理由: 対象読者の実務に関連する可能性が高いため。");
   });
 });

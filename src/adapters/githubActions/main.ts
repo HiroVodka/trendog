@@ -24,6 +24,7 @@ async function main(): Promise<void> {
     dryRun,
     maxTopics,
     debug,
+    audienceProfile: process.env.INPUT_AUDIENCEPROFILE ?? process.env.AUDIENCE_PROFILE,
     runId: process.env.GITHUB_RUN_ID ?? randomUUID()
   });
 }
