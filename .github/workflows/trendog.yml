@@ -44,13 +44,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-go@v5
         with:
-          node-version: "20"
-          cache: "npm"
+          go-version-file: "go.mod"
+          cache: true
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Test
+        run: go test ./...
 
       - name: Run batch
         env:
@@ -64,7 +64,7 @@ jobs:
           INPUT_MAXTOPICS: ${{ github.event.inputs.maxTopics || '17' }}
           INPUT_AUDIENCEPROFILE: ${{ github.event.inputs.audienceProfile || 'バックエンドエンジニア、SREエンジニア' }}
           INPUT_DEBUG: ${{ github.event.inputs.debug || 'false' }}
-        run: npm run run
+        run: go run ./cmd/trendog
 
       - name: Commit state
         if: ${{ success() && (github.event.inputs.dryRun != 'true') }}

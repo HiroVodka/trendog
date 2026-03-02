@@ -4,108 +4,102 @@
 
 > Beta: trendog は現在ベータ版です。仕様や出力フォーマットは今後変更される可能性があります。
 
-trendog は、技術トレンド記事を定期収集し、Gemini で対象読者にとって重要な記事を選別・要約して Slack に投稿するバッチアプリです。
+trendog は、技術トレンド記事を定期収集し、Gemini で対象読者に重要な記事を選別・要約して Slack に投稿する Go 製バッチアプリです。
 
-## Features
+## 主な機能
 
-- 複数ソースのトレンド記事を収集
-- 収集ソース: Hatena Hotentry / Hacker News / Zenn Feed
-- Gemini による重要度判定（対象読者プロファイルに基づく）
-- 重要記事のみを Slack へ投稿
-- GitHub Actions 定期実行（JST隔日判定）
-- `workflow_dispatch` による手動実行
-- 将来の Workers 移行を想定した Ports/Adapters 分離
+- 収集ソース: Hatena Hotentry / Hacker News / Zenn
+- 記事の重複統合（同一URL単位）
+- Gemini による重要度判定（対象読者プロファイル可変）
+- Important 判定の記事のみ Gemini で日本語要約
+- Slack Incoming Webhook 投稿
+- GitHub Actions の定期実行 + 手動実行
+- Ports/Adapters 分離で実行基盤を差し替えやすい構成
 
-## Output Format
+## 投稿フォーマット
 
-投稿される各記事のフォーマット:
+投稿される各記事は次の形式です。
 
 - 記事タイトル
 - URL
 - 内容の要約
 - おすすめ理由
 
-## Quick Start
+## クイックスタート
+### 1. 必須環境
 
-### 1. Install
+- Go 1.22 以上
 
-```bash
-npm ci
-```
-
-### 2. Set env vars (local)
+### 2. 環境変数を設定
 
 ```bash
 export GEMINI_API_KEY='...'
 export SLACK_WEBHOOK_URL='...'
 export AUDIENCE_PROFILE='バックエンドエンジニア、SREエンジニア'
+export STATE_FILE_PATH='state/state.json' # optional
 ```
 
-### 3. Run
+### 3. ローカル実行
 
 ```bash
-npm run run
+go run ./cmd/trendog
 ```
 
-## GitHub Actions Usage
+### 4. テスト実行
+
+```bash
+go test ./...
+```
+
+## GitHub Actions
 
 Workflow: `.github/workflows/trendog.yml`
 
-### Schedule
+### スケジュール
+- 毎日 `00:10 UTC` 起動
+- アプリ内で JST の隔日判定を実施
 
-- 毎日 `00:10 UTC` に起動
-- ジョブ内部で JST 隔日判定を実施
+### 手動実行 (`workflow_dispatch`)
 
-### Manual Run (`workflow_dispatch`)
-
-入力パラメータ:
+入力:
 
 - `mode`: `normal` / `force`
 - `dryRun`: `true` / `false`
-- `maxTopics`: 出力上限（既定 17）
-- `audienceProfile`: Gemini が重要判定するときの対象読者
+- `maxTopics`: 出力上限（デフォルト 17, 上限 30）
+- `audienceProfile`: 重要度判定の対象読者
 - `debug`: `true` / `false`
 
-## Required Secrets / Variables
+## 必須Secrets / Variables
 
-GitHub Secrets:
+Secrets:
 
 - `GEMINI_API_KEY`
 - `SLACK_WEBHOOK_URL`
 
-GitHub Variables (optional):
+Variables (任意):
 
 - `GEMINI_MODEL` (default: `gemini-2.5-flash`)
 - `AUDIENCE_PROFILE` (default: `バックエンドエンジニア、SREエンジニア`)
 
-## Recommended Audience Profile Examples
+## Audience Profile 例
 
 - `バックエンドエンジニア、SREエンジニア`
 - `インフラエンジニア、プラットフォームエンジニア`
 - `AIアプリケーション開発者`
 
-## Development
+## アーキテクチャ
+- `internal/usecase`: バッチ実行フロー
+- `internal/domain`: クラスタリング/スコアリング/Markdown整形
+- `internal/ports`: 外部境界インターフェース
+- `internal/adapters`: Sources / Gemini / Slack / State の実装
+- `cmd/trendog`: エントリポイント
 
-```bash
-npm run typecheck
-npm test
-npm run build
-```
-
-## Project Structure
-
-- `src/usecase`: 実行フローのユースケース
-- `src/domain`: スコアリング・整形などのドメインロジック
-- `src/ports`: インターフェース定義
-- `src/adapters`: 外部I/O実装（Sources / Gemini / Slack / Runtime）
-- `state/state.json`: 実行状態（重複投稿防止、前回値）
-
-## Notes
+## 運用メモ
 
 - ソース取得はリトライ付き
-- Gemini失敗時はフォールバックして投稿継続
-- 同日重複投稿は state で防止
+- Gemini失敗時はフォールバック投稿
+- 重複投稿防止は `state/state.json` で管理
 
 ## License
 
-公開時にライセンスファイルを追加してください（例: MIT）。
+MIT

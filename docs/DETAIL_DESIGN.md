@@ -1,139 +1,86 @@
-# 詳細設計（叩き台）
+# 詳細設計（Go版）
 
-## 1. Ports インターフェース
+## 1. Ports
 
-### 1.1 `SourceFetcher`
+### `SourceFetcher`
 
-```ts
-interface SourceFetcher {
-  name: string;
-  fetchItems(nowIso: string): Promise<SourceItem[]>;
+```go
+type SourceFetcher interface {
+	Name() string
+	FetchItems(ctx context.Context, nowISO string) ([]domain.SourceItem, error)
 }
 ```
 
-`SourceItem`:
+### `StateStore`
 
-```json
-{
-  "source": "hatena|hackernews|reddit",
-  "id": "string",
-  "title": "string",
-  "url": "https://...",
-  "score": 123,
-  "comments": 45,
-  "publishedAt": "2026-03-02T00:00:00.000Z"
+```go
+type StateStore interface {
+	Load(ctx context.Context) (domain.AppState, error)
+	Save(ctx context.Context, state domain.AppState) error
 }
 ```
 
-### 1.2 `StateStore`
+### `AIProvider`
 
-```ts
-interface StateStore {
-  load(): Promise<AppState>;
-  save(state: AppState): Promise<void>;
+```go
+type AIProvider interface {
+	Enrich(ctx context.Context, clusters []domain.Cluster, audienceProfile string) ([]domain.EnrichedCluster, error)
 }
 ```
 
-`AppState`:
+### `Notifier`
 
-```json
-{
-  "lastRunJstDate": "2026-03-02",
-  "itemsState": {
-    "reddit:golang:abc123": {
-      "score": 123,
-      "comments": 45,
-      "lastSeen": "2026-03-02T00:00:00.000Z"
-    }
-  },
-  "postedHashes": {
-    "2026-03-02": "sha256..."
-  }
+```go
+type Notifier interface {
+	Notify(ctx context.Context, markdown string) (NotifyResult, error)
 }
 ```
 
-### 1.3 `AIProvider`
+## 2. Adapters
 
-```ts
-interface AIProvider {
-  enrich(clusters: Cluster[]): Promise<EnrichedCluster[]>;
-}
-```
+- Sources: `HatenaFetcher`, `HNFetcher`, `ZennFetcher`
+- AI: `GeminiProvider`
+- Notifier: `SlackWebhookNotifier`
+- State: `FileStateStore`
+- Runtime entry: `cmd/trendog/main.go`
 
-### 1.4 `Notifier`
+## 3. Gemini 出力JSON
 
-```ts
-interface Notifier {
-  notify(markdown: string): Promise<{ ok: boolean; status: number; body: string }>;
-}
-```
-
-## 2. Adapters 一覧
-
-- Sources:
-  - `HatenaFetcher`
-  - `HackerNewsFetcher`
-  - `RedditFetcher`
-- AI:
-  - `GeminiProvider`
-- Notifier:
-  - `SlackWebhookNotifier`
-- State:
-  - `FileStateStore`
-- Runtime entry:
-  - GitHub Actions: `src/adapters/githubActions/main.ts`
-  - Workers: `src/adapters/workers/handler.ts`
-
-## 3. Gemini 厳格JSONスキーマ
-
-期待レスポンス:
+### 重要度判定
 
 ```json
 {
   "clusters": [
     {
       "clusterId": "cluster_1",
-      "summaryJa": "...",
-      "tags": ["AI", "Backend"],
-      "reasonToRead": "増分スコアと技術的含意が大きい"
+      "isImportant": true,
+      "reasonToRead": "理由"
     }
   ]
 }
 ```
 
-制約:
+### Important記事の要約
 
-- `summaryJa`: 日本語、3〜5行
-- `tags`: 固定カテゴリから最大3
-- `reasonToRead`: 1行
-- JSON以外を出力した場合はリトライ対象
-
-## 4. Gemini プロンプト案
-
-```
-あなたはエンジニア向けトレンド編集者です。
-以下のクラスタ一覧を処理してください。
-各クラスタについて summaryJa(日本語3-5行), tags(固定カテゴリから最大3), reasonToRead(1行) を返してください。
-tagsは候補のみ使用してください。
-出力は厳密にJSONのみ。JSON以外の文字列を含めないでください。
+```json
+{
+  "clusters": [
+    {
+      "clusterId": "cluster_1",
+      "summaryJa": "日本語要約",
+      "tags": ["Backend", "SRE"],
+      "reasonToRead": "おすすめ理由"
+    }
+  ]
+}
 ```
 
-## 5. ランキング
+## 4. 実行フロー（要点）
 
-- `delta_score`, `delta_comments` を前回stateとの差分で算出
-- `freshness = exp(-age_hours / 18)`
-- `trend = (log1p(delta_score) + 0.7*log1p(delta_comments) + 0.2*log1p(score_now)) * freshness`
-
-## 6. 投稿セクション
-
-- 🧩 注目トピック Top 7
-- 🔥 急上昇 Top 5
-- 🧵 議論が深い Top 5
-
-各要素:
-
-- タイトル
-- 要約（3〜5行）
-- タグ（最大3）
-- 読む理由（1行）
-- 代表リンク（最大2）
+1. ソース収集（Hatena/HN/Zenn）
+2. URL単位でクラスタ統合
+3. Geminiで対象読者に対する重要度判定
+4. Important記事のみGeminiで要約
+5. Markdown生成
+6. Slack投稿（`dryRun`時は送信しない）
+7. state保存（重複投稿防止）
