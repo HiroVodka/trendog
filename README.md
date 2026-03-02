@@ -21,6 +21,8 @@ Cloudflare Workers移行時は、主に `src/adapters/githubActions/main.ts` を
 - `GEMINI_API_KEY`
 - `SLACK_WEBHOOK_URL`
 - `REDDIT_USER_AGENT` (Repository Variables推奨)
+- `REDDIT_CLIENT_ID` (optional, Reddit OAuth)
+- `REDDIT_CLIENT_SECRET` (optional, Reddit OAuth)
 
 ## 手動実行
 
