@@ -72,6 +72,11 @@ describe("GeminiProvider", () => {
     const result = await provider.enrich([sampleCluster()]);
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0]?.[1]).toMatchObject({
+      headers: expect.objectContaining({
+        "X-goog-api-key": "test-key"
+      })
+    });
     expect(result).toEqual([
       {
         clusterId: "cluster_1",
@@ -125,5 +130,59 @@ describe("GeminiProvider", () => {
         reasonToRead: "理由2"
       }
     ]);
+  });
+
+  it("falls back to secondary model when primary has quota limit 0", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            error: {
+              message: "Quota exceeded, limit: 0",
+              details: [{ "@type": "type.googleapis.com/google.rpc.QuotaFailure" }]
+            }
+          }),
+          { status: 429 }
+        )
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            candidates: [
+              {
+                content: {
+                  parts: [
+                    {
+                      text: JSON.stringify({
+                        clusters: [
+                          {
+                            clusterId: "cluster_1",
+                            summaryJa: "要約3",
+                            tags: ["AI"],
+                            reasonToRead: "理由3"
+                          }
+                        ]
+                      })
+                    }
+                  ]
+                }
+              }
+            ]
+          }),
+          { status: 200 }
+        )
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const provider = new GeminiProvider("test-key");
+    const result = await provider.enrich([sampleCluster()]);
+
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    const firstUrl = String(fetchMock.mock.calls[0]?.[0]);
+    const secondUrl = String(fetchMock.mock.calls[1]?.[0]);
+    expect(firstUrl).toContain("models/gemini-flash-latest");
+    expect(secondUrl).toContain("models/gemini-2.0-flash");
+    expect(result[0]?.summaryJa).toBe("要約3");
   });
 });

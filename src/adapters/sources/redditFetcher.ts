@@ -49,10 +49,11 @@ export class RedditFetcher implements SourceFetcher {
 
     for (const subreddit of this.subreddits) {
       for (const mode of modes) {
-        const url = `https://www.reddit.com/r/${subreddit}/${mode}.json?limit=15`;
+        const url = `https://api.reddit.com/r/${subreddit}/${mode}?limit=15&raw_json=1`;
         const data = await fetchJsonWithRetry<RedditListing>(url, {
           headers: {
-            "User-Agent": this.userAgent
+            "User-Agent": this.userAgent,
+            Accept: "application/json"
           }
         });
         for (const child of data.data.children ?? []) {

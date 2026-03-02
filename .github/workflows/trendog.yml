@@ -51,6 +51,7 @@ jobs:
       - name: Run batch
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           REDDIT_USER_AGENT: ${{ vars.REDDIT_USER_AGENT }}
           STATE_FILE_PATH: state/state.json

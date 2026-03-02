@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { Cluster, EnrichedCluster, TAG_CANDIDATES } from "../../domain/model.js";
 import { AIProvider } from "../../ports/aiProvider.js";
-import { withRetry } from "../../shared/retry.js";
 
 const responseSchema = z.object({
   clusters: z.array(
@@ -17,7 +16,7 @@ const responseSchema = z.object({
 export class GeminiProvider implements AIProvider {
   constructor(
     private readonly apiKey: string,
-    private readonly model: string = "gemini-2.0-flash"
+    private readonly model: string = "gemini-flash-latest"
   ) {}
 
   async enrich(clusters: Cluster[]): Promise<EnrichedCluster[]> {
@@ -26,50 +25,25 @@ export class GeminiProvider implements AIProvider {
     }
 
     const prompt = buildPrompt(clusters);
-    const parsed = await withRetry(
-      async () => {
-        const res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${this.model}:generateContent?key=${this.apiKey}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              generationConfig: {
-                temperature: 0.2,
-                responseMimeType: "application/json"
-              },
-              contents: [
-                {
-                  role: "user",
-                  parts: [{ text: prompt }]
-                }
-              ]
-            })
-          }
-        );
+    const models = unique([this.model, "gemini-2.0-flash", "gemini-1.5-flash"]);
+    const errors: string[] = [];
+    let parsed: z.infer<typeof responseSchema> | undefined;
 
-        if (!res.ok) {
-          throw new Error(`gemini http error: ${res.status} ${await res.text()}`);
-        }
+    for (const model of models) {
+      const result = await callModel(model, this.apiKey, prompt);
+      if (result.ok) {
+        parsed = result.value;
+        break;
+      }
+      errors.push(`[${model}] ${result.error}`);
+      if (!result.retryableAcrossModels) {
+        break;
+      }
+    }
 
-        const data = (await res.json()) as {
-          candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
-        };
-        const parts = data.candidates?.[0]?.content?.parts ?? [];
-        const text = parts
-          .map((part) => part.text ?? "")
-          .join("\n")
-          .trim();
-        if (!text) {
-          throw new Error("gemini empty response");
-        }
-
-        const json = parseJsonText(text);
-        return responseSchema.parse(json);
-      },
-      2,
-      600
-    );
+    if (!parsed) {
+      throw new Error(`gemini enrich failed: ${errors.join(" | ")}`);
+    }
 
     return parsed.clusters.map((c) => ({
       clusterId: c.clusterId,
@@ -120,4 +94,93 @@ function parseJsonText(text: string): unknown {
     }
     throw new Error("gemini response is not valid JSON");
   }
+}
+
+async function callModel(
+  model: string,
+  apiKey: string,
+  prompt: string
+): Promise<
+  | { ok: true; value: z.infer<typeof responseSchema> }
+  | { ok: false; error: string; retryableAcrossModels: boolean }
+> {
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-goog-api-key": apiKey
+        },
+        body: JSON.stringify({
+          generationConfig: {
+            temperature: 0.2,
+            responseMimeType: "application/json"
+          },
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: prompt }]
+            }
+          ]
+        })
+      }
+    );
+
+    if (res.ok) {
+      const data = (await res.json()) as {
+        candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+      };
+      const parts = data.candidates?.[0]?.content?.parts ?? [];
+      const text = parts
+        .map((part) => part.text ?? "")
+        .join("\n")
+        .trim();
+      if (!text) {
+        return { ok: false, error: "empty response text", retryableAcrossModels: true };
+      }
+      const json = parseJsonText(text);
+      return { ok: true, value: responseSchema.parse(json) };
+    }
+
+    const body = await res.text();
+    const parsedErr = parseGeminiError(body);
+    const quotaZero = /limit:\s*0/i.test(body) || /PerDay/i.test(body);
+    const retryDelayMs = parsedErr.retryDelayMs ?? 0;
+    const retryable = res.status === 429 || res.status >= 500;
+
+    if (retryable && attempt < 2 && !quotaZero) {
+      const sleepMs = Math.max(800, Math.min(60000, retryDelayMs || 1000 * (attempt + 1)));
+      await new Promise((r) => setTimeout(r, sleepMs));
+      continue;
+    }
+
+    return {
+      ok: false,
+      error: `http ${res.status} ${parsedErr.message}`,
+      retryableAcrossModels: res.status !== 401 && res.status !== 403
+    };
+  }
+
+  return { ok: false, error: "unexpected retry loop exit", retryableAcrossModels: true };
+}
+
+function parseGeminiError(body: string): { message: string; retryDelayMs?: number } {
+  try {
+    const json = JSON.parse(body) as {
+      error?: { message?: string; details?: Array<{ "@type"?: string; retryDelay?: string }> };
+    };
+    const message = json.error?.message ?? body.slice(0, 200);
+    const retryDetail = json.error?.details?.find((x) => x?.["@type"]?.includes("RetryInfo"))?.retryDelay;
+    const sec = retryDetail ? Number(retryDetail.replace(/[^\d.]/g, "")) : NaN;
+    const retryDelayMs = Number.isFinite(sec) ? Math.floor(sec * 1000) : undefined;
+    return { message, retryDelayMs };
+  } catch {
+    return { message: body.slice(0, 200) };
+  }
+}
+
+function unique(values: string[]): string[] {
+  return [...new Set(values)];
 }

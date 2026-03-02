@@ -17,13 +17,15 @@ export interface AppRuntimeOptions {
   slackWebhookUrl?: string;
   redditUserAgent?: string;
   stateFilePath?: string;
+  geminiModel?: string;
 }
 
 export async function runApp(opts: AppRuntimeOptions): Promise<void> {
-  const geminiApiKey = opts.geminiApiKey ?? process.env.GEMINI_API_KEY ?? "";
-  const slackWebhookUrl = opts.slackWebhookUrl ?? process.env.SLACK_WEBHOOK_URL ?? "";
-  const redditUserAgent = opts.redditUserAgent ?? process.env.REDDIT_USER_AGENT ?? "trendog-bot/0.1";
-  const stateFilePath = opts.stateFilePath ?? process.env.STATE_FILE_PATH ?? "state/state.json";
+  const geminiApiKey = firstNonEmpty(opts.geminiApiKey, process.env.GEMINI_API_KEY) ?? "";
+  const slackWebhookUrl = firstNonEmpty(opts.slackWebhookUrl, process.env.SLACK_WEBHOOK_URL) ?? "";
+  const redditUserAgent = firstNonEmpty(opts.redditUserAgent, process.env.REDDIT_USER_AGENT) ?? "trendog-bot/0.1";
+  const stateFilePath = firstNonEmpty(opts.stateFilePath, process.env.STATE_FILE_PATH) ?? "state/state.json";
+  const geminiModel = firstNonEmpty(opts.geminiModel, process.env.GEMINI_MODEL) ?? "gemini-flash-latest";
 
   const fetchers = [
     new HatenaFetcher(),
@@ -35,10 +37,17 @@ export async function runApp(opts: AppRuntimeOptions): Promise<void> {
     {
       fetchers,
       stateStore: new FileStateStore(stateFilePath),
-      aiProvider: new GeminiProvider(geminiApiKey),
+      aiProvider: new GeminiProvider(geminiApiKey, geminiModel),
       notifier: new SlackWebhookNotifier(slackWebhookUrl),
       logger: consoleLogger
     },
     opts
   );
+}
+
+function firstNonEmpty(...vals: Array<string | undefined>): string | undefined {
+  for (const v of vals) {
+    if (v != null && v.trim().length > 0) return v;
+  }
+  return undefined;
 }
