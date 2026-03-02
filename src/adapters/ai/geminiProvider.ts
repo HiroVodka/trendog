@@ -26,7 +26,7 @@ const summarySchema = z.object({
 export class GeminiProvider implements AIProvider {
   constructor(
     private readonly apiKey: string,
-    private readonly model: string = "gemini-flash-latest"
+    private readonly model: string = "gemini-2.5-flash"
   ) {}
 
   async enrich(clusters: Cluster[], audienceProfile: string): Promise<EnrichedCluster[]> {
@@ -34,7 +34,7 @@ export class GeminiProvider implements AIProvider {
       throw new Error("GEMINI_API_KEY is missing");
     }
 
-    const models = unique([this.model, "gemini-2.0-flash", "gemini-1.5-flash"]);
+    const models = unique([this.model, "gemini-flash-latest", "gemini-2.5-flash-lite"]);
     const importance = await runAcrossModels(models, this.apiKey, buildImportancePrompt(clusters, audienceProfile), responseSchema);
     const importantIds = new Set(importance.clusters.filter((c) => c.isImportant).map((c) => c.clusterId));
     if (importantIds.size === 0) {

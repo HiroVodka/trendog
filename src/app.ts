@@ -24,7 +24,7 @@ export async function runApp(opts: AppRuntimeOptions): Promise<void> {
   const geminiApiKey = firstNonEmpty(opts.geminiApiKey, process.env.GEMINI_API_KEY) ?? "";
   const slackWebhookUrl = firstNonEmpty(opts.slackWebhookUrl, process.env.SLACK_WEBHOOK_URL) ?? "";
   const stateFilePath = firstNonEmpty(opts.stateFilePath, process.env.STATE_FILE_PATH) ?? "state/state.json";
-  const geminiModel = firstNonEmpty(opts.geminiModel, process.env.GEMINI_MODEL) ?? "gemini-flash-latest";
+  const geminiModel = firstNonEmpty(opts.geminiModel, process.env.GEMINI_MODEL) ?? "gemini-2.5-flash";
   const audienceProfile =
     firstNonEmpty(opts.audienceProfile, process.env.AUDIENCE_PROFILE) ?? "バックエンドエンジニア、SREエンジニア";
 

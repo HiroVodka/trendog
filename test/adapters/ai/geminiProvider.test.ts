@@ -7,9 +7,7 @@ function sampleCluster(): Cluster {
     id: "cluster_1",
     canonicalUrl: "https://example.com/topic",
     title: "Topic",
-    trendScore: 2,
-    deltaScore: 5,
-    deltaComments: 3,
+    rankScore: 2,
     items: [
       {
         source: "hackernews",
@@ -20,9 +18,7 @@ function sampleCluster(): Cluster {
         comments: 3,
         publishedAt: "2026-03-02T00:00:00.000Z",
         ageHours: 1,
-        deltaScore: 5,
-        deltaComments: 3,
-        trendScore: 2
+        rankScore: 2
       }
     ]
   };
@@ -242,8 +238,8 @@ describe("GeminiProvider", () => {
     expect(fetchMock).toHaveBeenCalledTimes(3);
     const firstUrl = String(fetchMock.mock.calls[0]?.[0]);
     const secondUrl = String(fetchMock.mock.calls[1]?.[0]);
-    expect(firstUrl).toContain("models/gemini-flash-latest");
-    expect(secondUrl).toContain("models/gemini-2.0-flash");
+    expect(firstUrl).toContain("models/gemini-2.5-flash");
+    expect(secondUrl).toContain("models/gemini-flash-latest");
     expect(result[0]?.summaryJa).toBe("要約3");
   });
 });

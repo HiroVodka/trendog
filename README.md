@@ -75,7 +75,7 @@ GitHub Secrets:
 
 GitHub Variables (optional):
 
-- `GEMINI_MODEL` (default: `gemini-flash-latest`)
+- `GEMINI_MODEL` (default: `gemini-2.5-flash`)
 - `AUDIENCE_PROFILE` (default: `バックエンドエンジニア、SREエンジニア`)
 
 ## Recommended Audience Profile Examples
