@@ -1,5 +1,5 @@
 {
-  "lastRunJstDate": "2026-05-19",
+  "lastRunJstDate": "2026-05-21",
   "itemsState": {
     "hackernews:47214645": {
       "score": 744,
@@ -257,154 +257,154 @@
       "lastSeen": "2026-03-04T00:48:54.398Z"
     },
     "hatena:1": {
-      "score": 100,
+      "score": 120,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:2": {
-      "score": 55,
+      "score": 178,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:3": {
-      "score": 36,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:4": {
-      "score": 24,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:5": {
       "score": 33,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:4": {
+      "score": 162,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:5": {
+      "score": 140,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:6": {
-      "score": 101,
+      "score": 34,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:7": {
-      "score": 27,
+      "score": 9,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:8": {
-      "score": 26,
+      "score": 17,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:9": {
-      "score": 16,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:10": {
-      "score": 202,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:11": {
-      "score": 25,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:12": {
-      "score": 21,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:13": {
-      "score": 25,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:14": {
-      "score": 10,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:15": {
-      "score": 4,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:16": {
-      "score": 54,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:17": {
-      "score": 5,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:18": {
-      "score": 4,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:19": {
-      "score": 445,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:20": {
-      "score": 95,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:21": {
-      "score": 5,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:22": {
-      "score": 13,
-      "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
-    },
-    "hatena:23": {
       "score": 6,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:10": {
+      "score": 10,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:11": {
+      "score": 5,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:12": {
+      "score": 5,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:13": {
+      "score": 7,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:14": {
+      "score": 4,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:15": {
+      "score": 33,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:16": {
+      "score": 11,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:17": {
+      "score": 87,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:18": {
+      "score": 25,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:19": {
+      "score": 22,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:20": {
+      "score": 97,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:21": {
+      "score": 26,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:22": {
+      "score": 24,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hatena:23": {
+      "score": 69,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:24": {
-      "score": 78,
+      "score": 20,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:25": {
-      "score": 112,
+      "score": 24,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:26": {
-      "score": 19,
+      "score": 20,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:27": {
-      "score": 37,
+      "score": 85,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:28": {
-      "score": 38,
+      "score": 225,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:29": {
-      "score": 165,
+      "score": 27,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hatena:30": {
-      "score": 13,
+      "score": 25,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:47215489": {
       "score": 179,
@@ -13707,9 +13707,9 @@
       "lastSeen": "2026-05-19T01:16:39.771Z"
     },
     "hackernews:48128003": {
-      "score": 298,
+      "score": 300,
       "comments": 85,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48135807": {
       "score": 10,
@@ -13749,7 +13749,7 @@
     "hackernews:48133561": {
       "score": 125,
       "comments": 41,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48140677": {
       "score": 8,
@@ -13758,8 +13758,8 @@
     },
     "hackernews:48130186": {
       "score": 102,
-      "comments": 24,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "comments": 25,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48140560": {
       "score": 2,
@@ -14057,9 +14057,9 @@
       "lastSeen": "2026-05-15T01:11:03.415Z"
     },
     "hackernews:48145524": {
-      "score": 167,
-      "comments": 135,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 172,
+      "comments": 136,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48157980": {
       "score": 5,
@@ -14082,9 +14082,9 @@
       "lastSeen": "2026-05-17T01:15:12.250Z"
     },
     "hackernews:48164173": {
-      "score": 68,
-      "comments": 97,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 74,
+      "comments": 103,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48151496": {
       "score": 13,
@@ -14097,14 +14097,14 @@
       "lastSeen": "2026-05-19T01:16:39.771Z"
     },
     "hackernews:48161881": {
-      "score": 114,
+      "score": 117,
       "comments": 44,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48136981": {
-      "score": 202,
+      "score": 203,
       "comments": 47,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48163604": {
       "score": 6,
@@ -14118,13 +14118,13 @@
     },
     "hackernews:48155570": {
       "score": 90,
-      "comments": 47,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "comments": 48,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48151287": {
       "score": 134,
-      "comments": 29,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "comments": 30,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48162360": {
       "score": 6,
@@ -14407,9 +14407,9 @@
       "lastSeen": "2026-05-19T01:16:39.771Z"
     },
     "hackernews:48179203": {
-      "score": 3,
-      "comments": 5,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 5,
+      "comments": 6,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48176542": {
       "score": 4,
@@ -14417,9 +14417,9 @@
       "lastSeen": "2026-05-19T01:16:39.771Z"
     },
     "hackernews:48165211": {
-      "score": 25,
-      "comments": 5,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 27,
+      "comments": 6,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48167752": {
       "score": 5,
@@ -14437,24 +14437,24 @@
       "lastSeen": "2026-05-19T01:16:39.771Z"
     },
     "hackernews:48123359": {
-      "score": 28,
-      "comments": 7,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 253,
+      "comments": 140,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48179677": {
-      "score": 539,
-      "comments": 278,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 710,
+      "comments": 346,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48181342": {
-      "score": 31,
-      "comments": 6,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 59,
+      "comments": 7,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48187382": {
-      "score": 2,
-      "comments": 1,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 6,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48185999": {
       "score": 3,
@@ -14462,19 +14462,19 @@
       "lastSeen": "2026-05-19T01:16:39.771Z"
     },
     "hackernews:48178184": {
-      "score": 316,
-      "comments": 130,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 324,
+      "comments": 135,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48149461": {
-      "score": 37,
+      "score": 40,
       "comments": 10,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48169874": {
-      "score": 427,
-      "comments": 138,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "score": 441,
+      "comments": 150,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "hackernews:48184645": {
       "score": 5,
@@ -14567,9 +14567,9 @@
       "lastSeen": "2026-05-19T01:16:39.771Z"
     },
     "zenn:https://zenn.dev/katzchang/articles/2786bf33bbed42": {
-      "score": 97,
+      "score": 81,
       "comments": 0,
-      "lastSeen": "2026-05-19T01:16:39.771Z"
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     },
     "zenn:https://zenn.dev/jackojacko05/articles/58e0d632be419a": {
       "score": 96,
@@ -14640,6 +14640,411 @@
       "score": 81,
       "comments": 0,
       "lastSeen": "2026-05-19T01:16:39.771Z"
+    },
+    "hackernews:48210590": {
+      "score": 156,
+      "comments": 95,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48202486": {
+      "score": 42,
+      "comments": 30,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48201330": {
+      "score": 27,
+      "comments": 18,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48208281": {
+      "score": 4,
+      "comments": 5,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48207785": {
+      "score": 13,
+      "comments": 16,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48202984": {
+      "score": 4,
+      "comments": 3,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48205190": {
+      "score": 2,
+      "comments": 3,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48204929": {
+      "score": 6,
+      "comments": 5,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48203050": {
+      "score": 4,
+      "comments": 7,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48202774": {
+      "score": 5,
+      "comments": 3,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48195267": {
+      "score": 4,
+      "comments": 3,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48200281": {
+      "score": 5,
+      "comments": 1,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48191893": {
+      "score": 11,
+      "comments": 12,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48199074": {
+      "score": 3,
+      "comments": 1,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48198841": {
+      "score": 4,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48195550": {
+      "score": 6,
+      "comments": 8,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48193451": {
+      "score": 2,
+      "comments": 33,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48192078": {
+      "score": 4,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48191712": {
+      "score": 3,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48191051": {
+      "score": 8,
+      "comments": 19,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48214399": {
+      "score": 26,
+      "comments": 10,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48210615": {
+      "score": 16,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48209668": {
+      "score": 50,
+      "comments": 15,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48211334": {
+      "score": 14,
+      "comments": 10,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48212956": {
+      "score": 7,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48192383": {
+      "score": 646,
+      "comments": 235,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48208834": {
+      "score": 34,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48195021": {
+      "score": 70,
+      "comments": 45,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48191602": {
+      "score": 517,
+      "comments": 195,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48205901": {
+      "score": 16,
+      "comments": 2,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48212309": {
+      "score": 2,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48193474": {
+      "score": 85,
+      "comments": 32,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48182856": {
+      "score": 43,
+      "comments": 16,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48210818": {
+      "score": 2,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48197390": {
+      "score": 37,
+      "comments": 1,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48198425": {
+      "score": 27,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48191852": {
+      "score": 40,
+      "comments": 54,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48189044": {
+      "score": 53,
+      "comments": 7,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48207447": {
+      "score": 3,
+      "comments": 1,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48206073": {
+      "score": 7,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48205526": {
+      "score": 11,
+      "comments": 3,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48202750": {
+      "score": 3,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48196023": {
+      "score": 9,
+      "comments": 1,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48188741": {
+      "score": 16,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48194368": {
+      "score": 6,
+      "comments": 3,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48201442": {
+      "score": 5,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48201111": {
+      "score": 4,
+      "comments": 2,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48200226": {
+      "score": 6,
+      "comments": 1,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48200051": {
+      "score": 5,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48199671": {
+      "score": 5,
+      "comments": 1,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48198827": {
+      "score": 3,
+      "comments": 2,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48198681": {
+      "score": 2,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48186943": {
+      "score": 6,
+      "comments": 1,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48197815": {
+      "score": 4,
+      "comments": 1,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48197547": {
+      "score": 3,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48189544": {
+      "score": 6,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48189454": {
+      "score": 5,
+      "comments": 7,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48196207": {
+      "score": 3,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48196094": {
+      "score": 4,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48195585": {
+      "score": 2,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48194739": {
+      "score": 6,
+      "comments": 4,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "hackernews:48192649": {
+      "score": 2,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/j5ik2o/articles/59de072b6728ff": {
+      "score": 100,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/ubie_dev/articles/modern-web-guidance": {
+      "score": 99,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/karaage0703/articles/f14b27ccb22737": {
+      "score": 98,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/dely_jp/articles/terraform-ephemeral-write-only-secrets": {
+      "score": 97,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/aishift/articles/5b048ff347fd7b": {
+      "score": 96,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/rei2718/articles/01d92f4913277f": {
+      "score": 95,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/monjofight/articles/4a2b3393581229": {
+      "score": 94,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/n0bisuke/books/hermes-agent-linebot": {
+      "score": 93,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/nrs/articles/97969a71c1d3b6": {
+      "score": 92,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/dress_code/articles/92dfb9206f50f3": {
+      "score": 91,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/go_to_k/articles/aws-cdk-unit-testing": {
+      "score": 90,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/r_kaga/articles/00f4bef5a8ac70": {
+      "score": 89,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/green_tea/articles/0bce4d47ab0674": {
+      "score": 88,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/aircloset/articles/f6c990989e60d4": {
+      "score": 87,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/pepabo/articles/9baa6271b2055d": {
+      "score": 86,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/emilia_lab/articles/claude-code-skill-safety": {
+      "score": 85,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/sc30gsw/articles/5414fe7efb29c7": {
+      "score": 84,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/techquant/articles/claude-code-pi5-budget-tuning": {
+      "score": 83,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
+    },
+    "zenn:https://zenn.dev/aoito/articles/fb3a5f66d001b0": {
+      "score": 82,
+      "comments": 0,
+      "lastSeen": "2026-05-21T01:18:11.408Z"
     }
   },
   "postedHashes": {
@@ -14682,6 +15087,7 @@
     "2026-05-13": "bca999e34d1e0314723f33ac92cb1c418474805956924155bd71e5c614d4c655",
     "2026-05-15": "4037a8fc82674fffad46d141ef7c502c99467f7d127e827bba155d9321948420",
     "2026-05-17": "30e135387c5a0e847ae1d94549ce9bea9b892ad79f9abb54426cbffd5073cc99",
-    "2026-05-19": "c3d31802ed0bc51d4011e504a710c37a0056d2a8e80661e09ca1c5ba550d6aec"
+    "2026-05-19": "c3d31802ed0bc51d4011e504a710c37a0056d2a8e80661e09ca1c5ba550d6aec",
+    "2026-05-21": "7d168dfecccc3d9ebdc8d9f382827c0f3645dcbae3dc3fdb0fc1edf2ea3d7c60"
   }
 }
